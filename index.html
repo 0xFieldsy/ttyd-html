@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en" class="h-dvh overflow-hidden overscroll-none">
+  <head>
+    <meta charset="utf-8">
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content"
+    >
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#ffffff">
+    <title>ttyd</title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAcCAYAAAAAwr0iAAACpElEQVR4AWL09g9oP3X0cAWA2KoGk6IJol29s/uv/Dis4CS4u0OOZYQ4JHhGCDGaIXmEk4c40UmIu7uz09XUu736bjjX2Zrr7rqWfa+kpd+AgR/IGGe6KN6o4qFTRUWvtp7QRPrIM9sf374NnL9s+Skq5PMPk8nkWCIymEKdAINQO0T+IaE1/iJr//z5A+VFQNZSMpUyAwYMMNZaw8wGZLojAFU86Pii/dF5796+M+lMxgQAA2gikTBBEJjfv3+bcrlsxCvo6xkJfBFw6ESkoYHuAy/gIOCcQ/t65MiRK2XCupcvXx788eNHGgvT6XT3ibSio8DbYVg2AaOjabAQhuGyfD5/IpvNXvn+/ftqIbHx8+fPUzHeldCopW2twxCK9Q1aJe5w+717987U1tb+kjDMHTdu3JG5c+duwwJ4qavSGjAsh4QuNDZhjcUP6zZB7CdNmrR+3rx5lMvlbjx69OjQtWvXzqnL1H09JaHeEWwKZAdgSyi7V0T06Pnz58ckB/YjIZGYyAEF7o43FLC1ONh0OmP+CBARAawoVt+Rsl+TL5VK3RkyZMjIQqEwfdiwYTNLpdJg8c5FyZUuk0CJJiNLCVxYpqhlsBgl0ld6+/btLvFOFqeYyCfpnqBbtLt54ZmlgIBjgLQZWwEeJWMH1GLRo9Z0mwSsd+woYM/U/naJjmnbQ9HzgLmyC1DilkZcsuyY2FeHgGv0ADF7E7cgAb1jnISagPGI5hBwkX/WMVNVcqByEhqrx2vcorhWaoodvIkEWZYqfg9UrK9cx8zRwyYmfA0Bk/VVCAFFcwBVNXMg0H/0UdrXApzoTgiktqbxnY4O51yfE3BhqLGgQDoanFBfX2/ilnTyP09Llyw+fe36jR1C5AMRcUyHEImn/07YxNRkCQDKtONpiorkWgAAAABJRU5ErkJggg=="
+    >
+    <script>
+      (({matchMedia:e,location:t},{documentElement:a})=>{const r=e("(prefers-color-scheme: dark)"),s=new URLSearchParams(t.search).get("dark"),c="true"===s?"dark":"false"===s?"light":"system",n=()=>{const e="dark"===c||"system"===c&&r.matches;a.classList.toggle("dark",e),a.setAttribute("data-theme",c),a.querySelector('meta[name="theme-color"]').setAttribute("content",e?"#0d1117":"#ffffff")};n(),r.addEventListener("change",n)})(window,document)
+    </script>
+  </head>
+  <body class="h-full overflow-hidden overscroll-none">
+    <div class="h-full" id="root"></div>
+    <script src="./src/index.tsx" type="module"></script>
+  </body>
+</html>

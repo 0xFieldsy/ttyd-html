@@ -1,0 +1,31 @@
+{
+  "editor.rulers": [100],
+
+  "files.exclude": {
+    "dist/**": true,
+    "node_modules/**": true
+  },
+  "files.watcherExclude": {
+    "dist/**": true,
+    "node_modules/**": true
+  },
+
+  // tailwind
+  "editor.quickSuggestions": { "strings": "on" },
+  "files.associations": { "*.css": "tailwindcss" },
+  "tailwindCSS.classAttributes": ["class", "className"],
+
+  // biome
+  "[javascript][javascriptreact][typescript][typescriptreact]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "biomejs.biome",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.biome": "explicit",
+      "source.organizeImports.biome": "explicit"
+    }
+  },
+  "[html][json][jsonc][tailwindcss]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "biomejs.biome"
+  }
+}
