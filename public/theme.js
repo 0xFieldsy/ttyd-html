@@ -3,7 +3,8 @@
   const lightColor = '#ffffff'
   const media = matchMedia('(prefers-color-scheme: dark)')
   const dark = new URLSearchParams(location.search).get('dark')
-  const theme = dark === 'true' ? 'dark' : dark === 'false' ? 'light' : 'system'
+  const theme =
+    dark === 'true' || dark === '1' ? 'dark' : dark === 'false' || dark === '0' ? 'light' : 'system'
   const handleChange = () => {
     const dark = theme === 'dark' || (theme === 'system' && media.matches)
     documentElement.classList.toggle('dark', dark)

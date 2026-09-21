@@ -10,7 +10,7 @@ npm run build
 ttyd -W -I dist/index.html bash
 ```
 
-The terminal uses the device color-scheme preference by default. Its upstream compatible URL override is `?dark=true` or `?dark=false`.
+The terminal uses the device color-scheme preference by default. Its URL override is `?dark=true` or `?dark=false`.
 
 ## Development
 
@@ -61,6 +61,7 @@ sudo cmake --install /path/to/ttyd/build
 - **React 19 instead of Preact.** Class components became function components; the `@bind` decorator became arrow-function class properties.
 - **Vite single-file build instead of Webpack and Gulp `inline-source`.** `vite-plugin-singlefile` plus `assetsInlineLimit: Infinity` produces the same self-contained page.
 - **Tailwind 4 instead of SCSS.** The layout rules are utility classes on the elements themselves. Two exceptions live in `src/index.css`: the `@theme` color tokens, and the import of `@xterm/xterm/css/xterm.css`.
+- **On-screen key dock.** Pins a bar of keys to the bottom of the screen: Ctrl, Escape, Tab, `~`, `/`, `|`, `-` and the arrows. Disable with `?showDock=false`
 - **Edge-to-edge on mobile.** The page is sized with `dvh` rather than `100%`, so mobile URL bars can't hide the bottom rows, and the viewport meta uses `viewport-fit=cover` with `interactive-widget=resizes-content`.
 - **Upgraded unicode with grapheme clusters.** `@xterm/addon-unicode-graphemes` replaces `@xterm/addon-unicode11`, so ZWJ sequences, skin-tone modifiers, flags and combining marks occupy one cell group.
 - **Durable reconnects.** Keeps retrying with jittered exponential backoff and reconnects immediately on `visibilitychange` or `online`.

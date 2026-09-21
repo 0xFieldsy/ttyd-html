@@ -1,6 +1,9 @@
 @import "tailwindcss";
 @import "@xterm/xterm/css/xterm.css" layer(components);
 
+/* follow the `dark` class the script in index.html sets, not the media query alone */
+@custom-variant dark (&:where(.dark, .dark *));
+
 /* keep in sync with the theme backgrounds in src/App.tsx and the inline script in index.html */
 :root {
   color-scheme: light;
