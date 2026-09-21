@@ -8,9 +8,10 @@ const clientOptions: ClientOptions = {
   disableLeaveAlert: false,
   disableResizeOverlay: false,
   enableSixel: true,
+  closeOnDisconnect: false,
   isWindows: false,
-  unicodeVersion: '15-graphemes',
-  closeOnDisconnect: false
+  showDock: true,
+  unicodeVersion: '15-graphemes'
 }
 
 const termOptions: ITerminalOptions = {

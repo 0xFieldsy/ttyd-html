@@ -127,6 +127,25 @@ describe('App', () => {
     })
   })
 
+  it('accepts 1 and 0 as dark query parameter values', async () => {
+    window.history.replaceState({}, '', '/?dark=1')
+    mocks.matches = false
+    root = await renderApp()
+
+    expect(mocks.terminalProps?.termOptions).toMatchObject({
+      theme: { background: '#0d1117' }
+    })
+
+    root.unmount()
+    window.history.replaceState({}, '', '/?dark=0')
+    mocks.matches = true
+    root = await renderApp()
+
+    expect(mocks.terminalProps?.termOptions).toMatchObject({
+      theme: { background: '#ffffff' }
+    })
+  })
+
   it('follows system theme changes and removes its listener on unmount', async () => {
     window.history.replaceState({}, '', '/')
     mocks.matches = true

@@ -1,9 +1,10 @@
 import type { ITerminalOptions, ITheme } from '@xterm/xterm'
 import { useEffect, useState } from 'react'
 
+import Dock from '@/components/Dock'
 import Terminal from '@/components/Terminal'
 import type { ClientOptions } from '@/lib/options'
-import type { FlowControl } from '@/lib/xterm'
+import type { FlowControl, Xterm } from '@/lib/xterm'
 
 const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:'
 const path = window.location.pathname.replace(/[/]+$/, '')
@@ -17,6 +18,7 @@ const clientOptions = {
   enableSixel: false,
   closeOnDisconnect: false,
   isWindows: false,
+  showDock: true,
   unicodeVersion: '15-graphemes'
 } as ClientOptions
 
@@ -82,9 +84,16 @@ const prefersDark = window.matchMedia('(prefers-color-scheme: dark)')
 
 function getThemeSetting(): ThemeSetting {
   const dark = new URLSearchParams(window.location.search).get('dark')
-  if (dark === 'true') return 'dark'
-  if (dark === 'false') return 'light'
+  if (dark === 'true' || dark === '1') return 'dark'
+  if (dark === 'false' || dark === '0') return 'light'
   return 'system'
+}
+
+/** The URL wins over the server, so the dock can show before SET_PREFERENCES arrives. */
+function getInitialShowDock(): boolean {
+  const showDock = new URLSearchParams(window.location.search).get('showDock')
+  if (showDock === null) return clientOptions.showDock
+  return showDock === 'true' || showDock === '1'
 }
 
 function getThemeName(): ThemeName {
@@ -120,6 +129,8 @@ const flowControl: FlowControl = {
 
 export default function App() {
   const [themeName, setThemeName] = useState(getThemeName)
+  const [showDock, setShowDock] = useState(getInitialShowDock)
+  const [xterm, setXterm] = useState<Xterm | null>(null)
 
   useEffect(() => {
     const updateTheme = () => setThemeName(getThemeName())
@@ -133,13 +144,19 @@ export default function App() {
   const termOptions = { ...baseTermOptions, theme }
 
   return (
-    <Terminal
-      id="terminal-container"
-      wsUrl={wsUrl}
-      tokenUrl={tokenUrl}
-      clientOptions={clientOptions}
-      termOptions={termOptions}
-      flowControl={flowControl}
-    />
+    // the safe-area insets wrap the terminal and the dock together
+    <div className="flex h-full flex-col pt-[env(safe-area-inset-top)] pr-[env(safe-area-inset-right)] pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)]">
+      <Terminal
+        id="terminal-container"
+        wsUrl={wsUrl}
+        tokenUrl={tokenUrl}
+        clientOptions={clientOptions}
+        termOptions={termOptions}
+        flowControl={flowControl}
+        onShowDock={setShowDock}
+        onReady={setXterm}
+      />
+      {showDock && <Dock terminal={xterm} />}
+    </div>
   )
 }

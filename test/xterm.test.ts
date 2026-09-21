@@ -129,10 +129,11 @@ const clientOptions: ClientOptions = {
   rendererType: 'webgl',
   disableLeaveAlert: false,
   disableResizeOverlay: false,
-  enableSixel: true,
+  enableSixel: false,
+  closeOnDisconnect: false,
   isWindows: false,
-  unicodeVersion: '15-graphemes',
-  closeOnDisconnect: false
+  showDock: false,
+  unicodeVersion: '15-graphemes'
 }
 
 const termOptions: ITerminalOptions = {

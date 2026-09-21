@@ -37,6 +37,8 @@ export interface XtermOptions {
   flowControl: FlowControl
   clientOptions: ClientOptions
   termOptions: ITerminalOptions
+  /** Called with the merged `showDock` preference once the server replies. */
+  onShowDock?: (show: boolean) => void
 }
 
 interface TtydTerminal extends Terminal {
@@ -277,8 +279,11 @@ export class Xterm {
     this.socket.send(payload)
   }
 
+  /** Rewrites keyboard input before it is sent. Set by the dock to apply a held modifier. */
+  transformInput?: (data: string) => string
+
   private processTerminalInput = (data: string) => {
-    this.sendData(data)
+    this.sendData(this.transformInput ? this.transformInput(data) : data)
   }
 
   private processBinaryInput = (data: string) => {
@@ -431,6 +436,10 @@ export class Xterm {
           console.log(`[ttyd] setting fixed title: ${value}`)
           this.titleFixed = value as string
           document.title = value as string
+          break
+        case 'showDock':
+          console.log(`[ttyd] key dock ${value ? 'enabled' : 'disabled'}`)
+          this.options.onShowDock?.(value as boolean)
           break
         case 'isWindows':
           if (value) console.log('[ttyd] is windows')
