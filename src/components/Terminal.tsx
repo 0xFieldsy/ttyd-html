@@ -4,20 +4,25 @@ import { Xterm, type XtermOptions } from '@/lib/xterm'
 
 interface Props extends XtermOptions {
   id: string
+  /** Hands the client to the parent on mount, and null on unmount. */
+  onReady?: (xterm: Xterm | null) => void
 }
 
-export default function Terminal({ id, ...options }: Props) {
+export default function Terminal({ id, onReady, ...options }: Props) {
   const container = useRef<HTMLDivElement>(null)
   const xterm = useRef<Xterm>(null)
 
   // the terminal owns its own lifecycle
   const optionsRef = useRef(options)
   optionsRef.current = options
+  const onReadyRef = useRef(onReady)
+  onReadyRef.current = onReady
 
   useEffect(() => {
     let disposed = false
     const term = new Xterm(optionsRef.current)
     xterm.current = term
+    onReadyRef.current?.(term)
     ;(async () => {
       await term.refreshToken()
       if (disposed || !container.current) return
@@ -28,6 +33,7 @@ export default function Terminal({ id, ...options }: Props) {
     return () => {
       disposed = true
       xterm.current = null
+      onReadyRef.current?.(null)
       term.destroy()
     }
   }, [])
@@ -41,7 +47,7 @@ export default function Terminal({ id, ...options }: Props) {
     <div
       id={id}
       ref={container}
-      className="h-full w-full overflow-hidden pt-[env(safe-area-inset-top)] pr-[env(safe-area-inset-right)] pb-[env(safe-area-inset-bottom)] pl-[env(safe-area-inset-left)] [&_.terminal]:h-full [&_.terminal]:p-0 sm:[&_.terminal]:p-1.25 [&_.xterm-viewport]:bg-(--background)"
+      className="min-h-0 w-full flex-1 overflow-hidden [&_.terminal]:h-full [&_.terminal]:p-0 sm:[&_.terminal]:p-1.25 [&_.xterm-viewport]:bg-(--background)"
     />
   )
 }

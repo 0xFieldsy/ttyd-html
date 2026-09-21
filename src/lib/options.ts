@@ -7,10 +7,11 @@ export interface ClientOptions {
   disableLeaveAlert: boolean
   disableResizeOverlay: boolean
   enableSixel: boolean
-  titleFixed?: string
-  isWindows: boolean
-  unicodeVersion: string
   closeOnDisconnect: boolean
+  isWindows: boolean
+  showDock: boolean
+  unicodeVersion: string
+  titleFixed?: string
 }
 
 export type Preferences = ITerminalOptions & ClientOptions
